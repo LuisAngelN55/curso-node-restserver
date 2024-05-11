@@ -84,7 +84,6 @@ const usuariosDelete = async (req, res) => {
 
     const user = await User.findByIdAndUpdate( id, { estado: false })
 
-
     res.json({
         msg: 'delete API - Controlador',
         user
