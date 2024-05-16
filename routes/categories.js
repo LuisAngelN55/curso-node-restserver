@@ -1,13 +1,21 @@
 import { Router } from "express";
 import { check } from "express-validator";
 
-// import { validateFields, validateJWT } from "../middlewares/index.js";
-
 import { validateJWT, validateFields, isAdminRole } from "../middlewares/index.js";
 import { createCategory, deleteCategory, getCategories, getCategoryById, updateCategory } from "../controllers/categories.js";
 import { categoryExistsById } from "../helpers/db-validators.js";
 
 const routerCategories = Router();
+
+
+
+// * Create category ---- Private: any user valid JWT
+routerCategories.post('/', [
+    validateJWT, //currentUser is added in this validation
+    check( 'name', 'Name is required').not().isEmpty(), 
+    validateFields,
+], createCategory );
+
 
 
 // * Get all categories ---- Public
@@ -21,13 +29,6 @@ routerCategories.get('/:id', [
     validateFields
 ], getCategoryById);
 
-
-// * Create category ---- Private: any user valid JWT
-routerCategories.post('/', [
-    validateJWT, //currentUser is added in this validation
-    check( 'name', 'Name is required').not().isEmpty(), 
-    validateFields,
-], createCategory );
 
 
 // * Update category ---- Private: any user valid JWT

@@ -14,7 +14,7 @@ class Server {
             auth           : '/api/auth',
             users          : '/api/users',
             categoriers    : '/api/categories',
-            products    : '/api/products'
+            products       : '/api/products'
         }
 
 
