@@ -1,5 +1,4 @@
-import Role from '../models/role.js'
-import User from '../models/user.js'
+import { Category, Role, User } from '../models/index.js';
 
 const isRoleValid = async (rol = '') => {
     const exists = await Role.findOne( { rol });
@@ -9,7 +8,7 @@ const isRoleValid = async (rol = '') => {
 }
 
 const emailExists = async ( email= '' ) => {
-    // Verificar si el correo existe
+    // Verify if email exists
     const exists = await User.findOne({ correo: email });
     if( exists ) {
         throw new Error(`The email ${ email } is already registered`)
@@ -19,15 +18,26 @@ const emailExists = async ( email= '' ) => {
 
 const userExistsById = async ( id ) => {
 
-    // Verificar si el correo existe
+    // Verify if user exists by id
     const exists = await User.findById( id );
     if( !exists ) {
-        throw new Error(`ID: ${ id }, is not valid or does not exists`)
+        throw new Error(`User ID: ${ id }, is not valid or does not exists`)
+    }
+}
+
+
+const categoryExistsById = async ( id ) => {
+
+    // Verify if category exists by id
+    const exists = await Category.findById( id );
+    if( !exists ) {
+        throw new Error(`Category ID: ${ id }, is not valid or does not exists`)
     }
 }
 
 export {
     isRoleValid,
     emailExists,
-    userExistsById
+    userExistsById,
+    categoryExistsById
 }

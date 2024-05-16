@@ -1,7 +1,6 @@
-
-
 import { Router } from "express";
 import { check } from "express-validator";
+
 import { googleSignIn, login } from "../controllers/auth.js";
 import { validateFields } from "../middlewares/validate-fields.js";
 

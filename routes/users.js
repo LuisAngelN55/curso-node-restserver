@@ -4,21 +4,21 @@ import { check } from "express-validator";
 import { validateFields, validateJWT, isAdminRole, hasRole } from "../middlewares/index.js";
 
 import { emailExists, isRoleValid, userExistsById } from "../helpers/db-validators.js";
-import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut } from "../controllers/usuarios.js";
+import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut } from "../controllers/users.js";
 
 
-const router = Router();
+const routerUser = Router();
 
-router.get('/', usuariosGet );
+routerUser.get('/', usuariosGet );
 
-router.put('/:id', [
+routerUser.put('/:id', [
     check( 'id', 'No es un ID válido').isMongoId(),
     check('id').custom( userExistsById ),
     check('rol').custom( isRoleValid ),
     validateFields
 ], usuariosPut);
 
-router.post('/', [
+routerUser.post('/', [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('password', 'El password debe der mayor a 6 caracteres').isLength({ min: 6}),
     check('correo', 'El correo no es válido').isEmail(),
@@ -29,7 +29,7 @@ router.post('/', [
 ]
 ,usuariosPost);
 
-router.delete('/:id', [
+routerUser.delete('/:id', [
     validateJWT,
     // isAdminRole,
     hasRole( 'ADMIN_ROLE', 'VENTAS_ROLE' ),
@@ -38,9 +38,7 @@ router.delete('/:id', [
     validateFields
 ],usuariosDelete);
 
-router.patch('/', usuariosPatch);
+routerUser.patch('/', usuariosPatch);
 
 
-export {
-    router
-}
+export default routerUser;
