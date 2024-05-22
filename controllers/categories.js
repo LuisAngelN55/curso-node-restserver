@@ -2,7 +2,7 @@ import { request, response } from "express";
 import { Category } from "../models/index.js";
 
 
-
+//* ------------------------- GET ALL Categories --------------------- *//
 const getCategories = async ( req = request, res = response ) => {
 
     const { limit = 5, from = 0 } = req.query;
@@ -24,6 +24,7 @@ const getCategories = async ( req = request, res = response ) => {
 }
 
 
+//* ------------------------- GET BY ID Category --------------------- *//
 const getCategoryById = async ( req = request, res = response ) => {
 
     const { id } = req.params;
@@ -34,7 +35,7 @@ const getCategoryById = async ( req = request, res = response ) => {
 }
 
 
-
+//* ------------------------- CREATE Category --------------------- *//
 const createCategory = async ( req = request, res = response ) => {
 
     const name = req.body.name.toUpperCase();
@@ -61,7 +62,7 @@ const createCategory = async ( req = request, res = response ) => {
 }
 
 
-
+//* ------------------------- UPDATE Category --------------------- *//
 const updateCategory = async ( req = request, res = response ) =>{
 
     const { id } = req.params;
